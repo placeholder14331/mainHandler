@@ -1,0 +1,64 @@
+local StarterGui = game:GetService("StarterGui")
+
+local function getExecutor()
+    local name = "unknown"
+    pcall(function()
+        if identifyexecutor then name = identifyexecutor()
+        elseif getexecutorname then name = getexecutorname() end
+    end)
+    return string.lower(tostring(name))
+end
+
+local executor = getExecutor()
+local isXeno   = executor:find("xeno",   1, true)
+local isSolara = executor:find("solara", 1, true)
+local isLuna   = executor:find("luna",   1, true)
+
+local function notify(title, text)
+    pcall(function()
+        StarterGui:SetCore("SendNotification", {
+            Title    = title,
+            Text     = text,
+            Duration = 5,
+            Icon     = "rbxassetid://86447290254935"
+        })
+    end)
+end
+
+local function ldr2()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/efe3ffae9029e1fa14f9b1f70bcbaf96.lua"))()
+end
+
+local function ldr()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/33bb92dc9edaecc20f39f4ba0b5a16b9.lua"))()
+end
+
+local placeId = game.PlaceId
+
+local IdkWhatToPutInThisButIGuessThatsItAndOhBtwJoinAWP = {
+    [13438553315]     = true, -- DW LC
+    [72144869714561]  = true, -- DW LC MGSVR
+    [112060227074307] = true, -- DW LC NGTY
+    [115209351507608] = true, -- The Armory
+}
+
+local awp = {
+    [18259975825]     = true, -- G/N
+    [114931763326993] = true, -- DW LEGACY
+    [109185433585492] = true, -- DW LEGACY NGTMR
+    [155615604]       = true, -- Prison life
+    [135564683255158] = true, -- Prison life VC
+}
+
+if IdkWhatToPutInThisButIGuessThatsItAndOhBtwJoinAWP[placeId] then
+    repeat task.wait() until game:IsLoaded()
+    if isXeno or isSolara or isLuna then
+        notify("Serenium", "Solara/Xeno Detected, loading supported version")
+    end
+    ldr2()
+elseif awp[placeId] then
+    repeat task.wait() until game:IsLoaded()
+    ldr()
+else
+    notify("Wrong game", "Script Won't load: Wrong PlaceID")
+end
