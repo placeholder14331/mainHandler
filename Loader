@@ -9,10 +9,8 @@ local function getExecutor()
     return string.lower(tostring(name))
 end
 
-local executor = getExecutor()
-local isXeno   = executor:find("xeno",   1, true)
-local isSolara = executor:find("solara", 1, true)
-local isLuna   = executor:find("luna",   1, true)
+local executor   = getExecutor()
+local isShitExec = executor:find("xeno",   1, true) ~= nil or executor:find("solara", 1, true) ~= nil or executor:find("luna",   1, true) ~= nil
 
 local function notify(title, text)
     pcall(function()
@@ -25,40 +23,34 @@ local function notify(title, text)
     end)
 end
 
-local function ldr2()
+local function ldr()
     loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/efe3ffae9029e1fa14f9b1f70bcbaf96.lua"))()
 end
 
-local function ldr()
-    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/33bb92dc9edaecc20f39f4ba0b5a16b9.lua"))()
-end
-
-local placeId = game.PlaceId
-
-local IdkWhatToPutInThisButIGuessThatsItAndOhBtwJoinAWP = {
-    [13438553315]     = true, -- DW LC
-    [72144869714561]  = true, -- DW LC MGSVR
-    [112060227074307] = true, -- DW LC NGTY
-    [115209351507608] = true, -- The Armory
+local games = {
+    [13438553315]     = { name = "DW LC",           shitExec = true  },
+    [72144869714561]  = { name = "DW LC MGSVR",     shitExec = true  },
+    [112060227074307] = { name = "DW LC NGTY",      shitExec = true  },
+    [114931763326993] = { name = "DW LEGACY",       shitExec = true  },
+    [109185433585492] = { name = "DW LEGACY NGTMR", shitExec = true  },
+    [115209351507608] = { name = "The Armory",      shitExec = false },
+    [18259975825]     = { name = "G/N",             shitExec = false },
+    [155615604]       = { name = "Prison Life",     shitExec = false },
+    [135564683255158] = { name = "Prison Life VC",  shitExec = false },
 }
 
-local awp = {
-    [18259975825]     = true, -- G/N
-    [114931763326993] = true, -- DW LEGACY
-    [109185433585492] = true, -- DW LEGACY NGTMR
-    [155615604]       = true, -- Prison life
-    [135564683255158] = true, -- Prison life VC
-}
+repeat task.wait() until game:IsLoaded()
 
-if IdkWhatToPutInThisButIGuessThatsItAndOhBtwJoinAWP[placeId] then
-    repeat task.wait() until game:IsLoaded()
-    if isXeno or isSolara or isLuna then
-        notify("Serenium", "Solara/Xeno Detected, loading supported version")
-    end
-    ldr2()
-elseif awp[placeId] then
-    repeat task.wait() until game:IsLoaded()
-    ldr()
-else
-    notify("Wrong game", "Script Won't load: Wrong PlaceID")
+local entry = games[game.PlaceId]
+
+if not entry then
+    notify("Wrong game", "Script won't load: Wrong PlaceID")
+    return
 end
+
+if isShitExec and not entry.shitExec then
+    notify("awp", "Your executor is not supported")
+    return
+end
+
+ldr()
