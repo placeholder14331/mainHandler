@@ -18,25 +18,28 @@ local function notify(title, text)
             Title    = title,
             Text     = text,
             Duration = 5,
-            Icon     = "rbxassetid://86447290254935"
         })
     end)
 end
 
 local function ldr()
-    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/efe3ffae9029e1fa14f9b1f70bcbaf96.lua"))()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/efe3ffae9029e1fa14f9b1f70bcbaf96.lua"))();
+end
+
+local function EMULATOR()
+	loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/45b0155bf77c861727a94d7b82879c41.lua"))();
 end
 
 local games = {
-    [13438553315]     = { name = "DW LC",           shitExec = true  },
-    [72144869714561]  = { name = "DW LC MGSVR",     shitExec = true  },
-    [112060227074307] = { name = "DW LC NGTY",      shitExec = true  },
-    [114931763326993] = { name = "DW LEGACY",       shitExec = true  },
-    [109185433585492] = { name = "DW LEGACY NGTMR", shitExec = true  },
-    [115209351507608] = { name = "The Armory",      shitExec = false },
-    [18259975825]     = { name = "G/N",             shitExec = false },
-    [155615604]       = { name = "Prison Life",     shitExec = false },
-    [135564683255158] = { name = "Prison Life VC",  shitExec = false },
+    [13438553315]     = { name = "DW LC",           shitExec = true,  EMULATOR = true  },
+    [72144869714561]  = { name = "DW LC MGSVR",     shitExec = true,  EMULATOR = true  },
+    [112060227074307] = { name = "DW LC NGTY",      shitExec = true,  EMULATOR = true  },
+    [114931763326993] = { name = "DW LEGACY",       shitExec = true,  EMULATOR = false },
+    [109185433585492] = { name = "DW LEGACY NGTMR", shitExec = true,  EMULATOR = false },
+    [115209351507608] = { name = "The Armory",      shitExec = false, EMULATOR = false },
+    [18259975825]     = { name = "G/N",             shitExec = false, EMULATOR = false },
+    [155615604]       = { name = "Prison Life",     shitExec = false, EMULATOR = false },
+    [135564683255158] = { name = "Prison Life VC",  shitExec = false, EMULATOR = false },
 }
 
 repeat task.wait() until game:IsLoaded()
@@ -53,4 +56,13 @@ if isShitExec and not entry.shitExec then
     return
 end
 
-ldr()
+if getgenv().unstable and entry.EMULATOR then
+    if isShitExec then
+        notify("awp", "Emulator not supported on Xeno or Solara.")
+        return
+    end
+    EMULATOR();
+    return
+end
+
+ldr();
