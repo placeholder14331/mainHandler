@@ -8,7 +8,7 @@ local function getExecutor()
     end)
     return string.lower(tostring(name))
 end
-
+local ThePlayer  = game:GetService("Players").LocalPlayer
 local executor   = getExecutor()
 local isShitExec = executor:find("xeno",   1, true) ~= nil or executor:find("solara", 1, true) ~= nil or executor:find("luna",   1, true) ~= nil
 
@@ -31,9 +31,9 @@ local function EMULATOR()
 end
 
 local games = {
-    [13438553315]     = { name = "DW LC",           shitExec = true,  EMULATOR = true  },
-    [72144869714561]  = { name = "DW LC MGSVR",     shitExec = true,  EMULATOR = true  },
-    [112060227074307] = { name = "DW LC NGTY",      shitExec = true,  EMULATOR = true  },
+    [13438553315]     = { name = "DW LC",           shitExec = false,  EMULATOR = true  },
+    [72144869714561]  = { name = "DW LC MGSVR",     shitExec = false,  EMULATOR = true  },
+    [112060227074307] = { name = "DW LC NGTY",      shitExec = false,  EMULATOR = true  },
     [114931763326993] = { name = "DW LEGACY",       shitExec = true,  EMULATOR = false },
     [109185433585492] = { name = "DW LEGACY NGTMR", shitExec = true,  EMULATOR = false },
     [115209351507608] = { name = "The Armory",      shitExec = false, EMULATOR = false },
@@ -57,11 +57,7 @@ if isShitExec and not entry.shitExec then
 end
 
 if getgenv().unstable and entry.EMULATOR then
-    if isShitExec then
-        notify("awp", "Emulator not supported on Xeno or Solara.")
-        return
-    end
-    EMULATOR();
+	ThePlayer:Kick("Emulator is patched")
     return
 end
 
