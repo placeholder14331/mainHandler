@@ -8,16 +8,18 @@ local function getExecutor()
     end)
     return string.lower(tostring(name))
 end
-local ThePlayer  = game:GetService("Players").LocalPlayer
-local executor   = getExecutor()
-local isShitExec = executor:find("xeno",   1, true) ~= nil or executor:find("solara", 1, true) ~= nil or executor:find("luna",   1, true) ~= nil
 
-local function notify(title, text)
+local ThePlayer  = cloneref(game:GetService("Players").LocalPlayer) or game:GetService("Players").LocalPlayer
+local executor   = getExecutor()
+local isShitExec = executor:find("xeno", 1, true) ~= nil or executor:find("solara", 1, true) ~= nil or executor:find("luna", 1, true) ~= nil
+
+local function notify(title, text, dur, icon)
     pcall(function()
         StarterGui:SetCore("SendNotification", {
             Title    = title,
             Text     = text,
-            Duration = 5,
+            Duration = dur,
+			Icon     = icon,
         })
     end)
 end
@@ -26,20 +28,16 @@ local function ldr()
     loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/efe3ffae9029e1fa14f9b1f70bcbaf96.lua"))();
 end
 
-local function EMULATOR()
-	loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/45b0155bf77c861727a94d7b82879c41.lua"))();
-end
-
 local games = {
-    [13438553315]     = { name = "DW LC",           shitExec = false,  EMULATOR = true  },
-    [72144869714561]  = { name = "DW LC MGSVR",     shitExec = false,  EMULATOR = true  },
-    [112060227074307] = { name = "DW LC NGTY",      shitExec = false,  EMULATOR = true  },
-    [114931763326993] = { name = "DW LEGACY",       shitExec = true,  EMULATOR = false },
-    [109185433585492] = { name = "DW LEGACY NGTMR", shitExec = true,  EMULATOR = false },
-    [115209351507608] = { name = "The Armory",      shitExec = false, EMULATOR = false },
-    [18259975825]     = { name = "G/N",             shitExec = false, EMULATOR = false },
-    [155615604]       = { name = "Prison Life",     shitExec = false, EMULATOR = false },
-    [135564683255158] = { name = "Prison Life VC",  shitExec = false, EMULATOR = false },
+    [13438553315]     = { name = "DW LC",           shitExec = false, },
+    [72144869714561]  = { name = "DW LC MG SVR",    shitExec = false, },
+    [112060227074307] = { name = "DW LC NGTY",      shitExec = false, },
+    [114931763326993] = { name = "DW LEGACY",       shitExec = true,  },
+    [109185433585492] = { name = "DW LEGACY NGTMR", shitExec = true,  },
+    [115209351507608] = { name = "The Armory",      shitExec = false, },
+    [18259975825]     = { name = "G/D",             shitExec = false, },
+    [155615604]       = { name = "Prison Life",     shitExec = false, },
+    [135564683255158] = { name = "Prison Life VC",  shitExec = false, },
 }
 
 repeat task.wait() until game:IsLoaded()
@@ -47,17 +45,12 @@ repeat task.wait() until game:IsLoaded()
 local entry = games[game.PlaceId]
 
 if not entry then
-    notify("Wrong game", "Script won't load: Wrong PlaceID")
+    notify("Wrong game", "Script won't load: Wrong PlaceID", 5, "117968483672722")
     return
 end
 
 if isShitExec and not entry.shitExec then
-    notify("awp", "Your executor is not supported")
-    return
-end
-
-if getgenv().unstable and entry.EMULATOR then
-	ThePlayer:Kick("Emulator is patched")
+    notify("awp", "Your executor is not supported", 5, "117968483672722")
     return
 end
 
