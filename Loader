@@ -46,10 +46,10 @@ local games = {
     [112060227074307] = { name = "DW LC NGTY",      shitExec = false, },
     [114931763326993] = { name = "DW LEGACY",       shitExec = true,  },
     [109185433585492] = { name = "DW LEGACY NGTMR", shitExec = true,  },
-    [115209351507608] = { name = "The Armory",      shitExec = false, },
-    [18259975825]     = { name = "G/D",             shitExec = false, },
-    [155615604]       = { name = "Prison Life",     shitExec = false, },
-    [135564683255158] = { name = "Prison Life VC",  shitExec = false, },
+    [115209351507608] = { name = "The Armory",      shitExec = true, },
+    [18259975825]     = { name = "G/D",             shitExec = true, },
+    [155615604]       = { name = "Prison Life",     shitExec = true, },
+    [135564683255158] = { name = "Prison Life VC",  shitExec = true, },
 }
 
 repeat task.wait() until game:IsLoaded()
