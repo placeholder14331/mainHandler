@@ -11,7 +11,7 @@ end
 
 local ThePlayer  = cloneref(game:GetService("Players").LocalPlayer) or game:GetService("Players").LocalPlayer
 local executor   = getExecutor()
-local isShitExec = executor:find("xeno", 1, true) ~= nil or executor:find("solara", 1, true) ~= nil or executor:find("luna", 1, true) ~= nil
+local isShitExec = executor:find("xeno", 1, true) ~= nil or executor:find("solara", 1, true) ~= nil or executor:find("luna", 1, true) ~= nil or executor:find("real", 1, true) ~= nil
 
 local function notify(title, text, dur, icon)
     pcall(function()
