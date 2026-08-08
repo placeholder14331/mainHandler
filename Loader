@@ -1,5 +1,17 @@
 local StarterGui = game:GetService("StarterGui")
 
+getgenv().warn = function()
+	return
+end
+
+getgenv().error = function()
+	return
+end
+
+getgenv().print = function()
+	return
+end
+
 local function getExecutor()
     local name = "unknown"
     pcall(function()
